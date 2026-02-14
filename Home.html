@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Science Quiz - Download Quizzes</title>
+  <meta name="description" content="Download free science quiz files for the Green Science Quiz app. Biology, Chemistry, Soil Science and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green-50: #eefbf3;
+      --green-100: #d6f5e2;
+      --green-200: #b0eac9;
+      --green-300: #7dd9a9;
+      --green-400: #48c184;
+      --green-500: #26a96b;
+      --green-600: #188a55;
+      --green-700: #136e46;
+      --green-800: #125739;
+      --green-900: #104830;
+      --dark-900: #060d09;
+      --dark-800: #0c1610;
+      --dark-700: #141f18;
+      --dark-600: #1c2e23;
+      --dark-500: #273d2f;
+      --dark-400: #354e3e;
+      --surface: #111c14;
+      --surface-raised: #182520;
+      --surface-hover: #1f302a;
+      --text-primary: #e8f5ed;
+      --text-secondary: #94bfa3;
+      --text-muted: #5e8a6f;
+      --glow: rgba(38, 169, 107, 0.12);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-xs: 6px;
+      --transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--dark-900);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    html[dir="rtl"] body { font-family: 'Noto Kufi Arabic', 'Outfit', sans-serif; }
+
+    /* ── BG ── */
+    .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .bg-layer .orb { position: absolute; border-radius: 50%; filter: blur(80px); }
+    .bg-layer .orb-1 { width: 600px; height: 600px; top: -15%; left: -10%; background: radial-gradient(circle, rgba(38,169,107,0.12), transparent 70%); animation: drift 22s ease-in-out infinite; }
+    .bg-layer .orb-2 { width: 500px; height: 500px; bottom: -10%; right: -5%; background: radial-gradient(circle, rgba(38,169,107,0.07), transparent 70%); animation: drift 28s ease-in-out infinite reverse; }
+    .bg-layer .orb-3 { width: 300px; height: 300px; top: 40%; left: 50%; background: radial-gradient(circle, rgba(72,193,132,0.06), transparent 70%); animation: drift 18s ease-in-out infinite 5s; }
+    @keyframes drift { 0%, 100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-40px) scale(1.05); } 66% { transform: translate(-20px,30px) scale(0.96); } }
+    .grain { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+    .wrap { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── LANG BAR ── */
+    .lang-bar { position: sticky; top: 0; z-index: 100; background: rgba(6,13,9,0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(39,61,47,0.5); padding: 10px 0; }
+    .lang-bar .wrap { display: flex; justify-content: space-between; align-items: center; }
+    .lang-brand { font-weight: 700; font-size: 0.95rem; color: var(--green-400); display: flex; align-items: center; gap: 8px; }
+    .lang-brand svg { width: 22px; height: 22px; fill: var(--green-400); }
+    .lang-btns { display: flex; gap: 4px; background: var(--dark-700); border-radius: 10px; padding: 3px; }
+    .lang-btn { padding: 6px 14px; border-radius: 8px; font-family: inherit; font-size: 0.8rem; font-weight: 600; background: transparent; border: none; color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; }
+    .lang-btn.active { background: var(--green-700); color: white; box-shadow: 0 2px 8px rgba(38,169,107,0.2); }
+    .lang-btn:hover:not(.active) { color: var(--text-secondary); }
+
+    /* ── HEADER ── */
+    header { padding: 64px 0 48px; text-align: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--dark-600); border: 1px solid var(--dark-400); border-radius: 100px; padding: 6px 16px 6px 8px; font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; margin-bottom: 24px; animation: fade-up 0.6s 0.1s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-500); box-shadow: 0 0 8px var(--green-500); animation: pulse-dot 2s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    header h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; margin-bottom: 16px; animation: fade-up 0.7s 0.2s cubic-bezier(0.16,1,0.3,1) both; }
+    header h1 .accent { background: linear-gradient(135deg, var(--green-300) 0%, var(--green-500) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    header .subtitle { font-size: 1.1rem; color: var(--text-secondary); font-weight: 300; max-width: 520px; margin: 0 auto; animation: fade-up 0.7s 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes fade-up { from { opacity: 0; transform: translateY(24px); } }
+
+    /* ── VIDEO ── */
+    .video-section { margin-bottom: 56px; animation: fade-up 0.7s 0.45s cubic-bezier(0.16,1,0.3,1) both; }
+    .section-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--green-400); font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .section-label::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--dark-400), transparent); }
+    html[dir="rtl"] .section-label::after { background: linear-gradient(270deg, var(--dark-400), transparent); }
+    .video-card { background: var(--surface); border: 1px solid var(--dark-500); border-radius: var(--radius); overflow: hidden; }
+    .video-embed { position: relative; padding-bottom: 56.25%; height: 0; background: var(--dark-800); }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .video-embed .video-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--text-muted); font-size: 0.9rem; }
+    .video-embed .video-placeholder svg { width: 56px; height: 56px; opacity: 0.4; }
+    .video-info { padding: 20px 24px; }
+    .video-info p { color: var(--text-secondary); font-size: 0.92rem; font-weight: 300; }
+
+    /* ── HOW-TO ── */
+    .how-to { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 56px; animation: fade-up 0.7s 0.55s cubic-bezier(0.16,1,0.3,1) both; }
+    .how-step { background: var(--surface); border: 1px solid var(--dark-500); border-radius: var(--radius-sm); padding: 20px; text-align: center; transition: all var(--transition); }
+    .how-step:hover { border-color: var(--dark-400); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+    .how-step .num { width: 36px; height: 36px; border-radius: 10px; background: var(--dark-600); border: 1px solid var(--dark-400); display: inline-flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; color: var(--green-400); margin-bottom: 12px; }
+    .how-step h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+    .how-step p { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; }
+
+    /* ── QUIZ SECTIONS ── */
+    .quiz-sections { margin-bottom: 56px; }
+    .quiz-section { margin-bottom: 16px; }
+    .section-header { display: flex; align-items: center; gap: 14px; padding: 18px 22px; background: var(--surface); border: 1px solid var(--dark-500); border-radius: var(--radius) var(--radius) 0 0; cursor: pointer; user-select: none; transition: all 0.2s ease; }
+    .section-header:hover { background: var(--surface-hover); }
+    .section-header.collapsed { border-radius: var(--radius); }
+    .section-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .section-icon.soil { background: linear-gradient(135deg, #7a5c1e, #a67b2e); }
+    .section-icon.plant { background: linear-gradient(135deg, #1b5e20, #388e3c); }
+    .section-icon.climate { background: linear-gradient(135deg, #0d47a1, #1976d2); }
+    .section-icon.chemistry { background: linear-gradient(135deg, #4a148c, #7b1fa2); }
+    .section-icon.physics { background: linear-gradient(135deg, #bf360c, #e64a19); }
+    .section-icon.biology { background: linear-gradient(135deg, #006064, #00838f); }
+    .section-icon.water { background: linear-gradient(135deg, #01579b, #0288d1); }
+    .section-icon.general { background: linear-gradient(135deg, var(--green-700), var(--green-500)); }
+    .section-info { flex: 1; min-width: 0; }
+    .section-title-text { font-size: 1.05rem; font-weight: 700; }
+    .section-count { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; }
+    .section-chevron { flex-shrink: 0; width: 20px; height: 20px; color: var(--text-muted); transition: transform 0.3s ease; }
+    .section-header.collapsed .section-chevron { transform: rotate(-90deg); }
+    html[dir="rtl"] .section-header.collapsed .section-chevron { transform: rotate(90deg); }
+    .section-body { border: 1px solid var(--dark-500); border-top: none; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s ease, border-width 0.3s ease; opacity: 1; }
+    .section-body.hidden { max-height: 0 !important; opacity: 0; border-width: 0; pointer-events: none; }
+    .quiz-row { display: flex; align-items: center; gap: 14px; padding: 14px 22px 14px 80px; background: var(--dark-800); border-top: 1px solid var(--dark-600); transition: background 0.2s ease; }
+    html[dir="rtl"] .quiz-row { padding: 14px 80px 14px 22px; }
+    .quiz-row:first-child { border-top: none; }
+    .quiz-row:hover { background: var(--dark-700); }
+    .quiz-row-icon { font-size: 1rem; width: 32px; height: 32px; border-radius: 8px; background: var(--dark-600); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .quiz-row-info { flex: 1; min-width: 0; }
+    .quiz-row-name { font-size: 0.92rem; font-weight: 600; }
+    .quiz-row-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+    .qm-tag { font-size: 0.73rem; color: var(--text-muted); }
+    .dl-btn { flex-shrink: 0; display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: var(--radius-xs); background: var(--green-700); color: white; font-family: inherit; font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer; text-decoration: none; transition: all 0.25s ease; white-space: nowrap; }
+    .dl-btn:hover { background: var(--green-600); box-shadow: 0 4px 14px rgba(38,169,107,0.25); transform: translateY(-1px); }
+    .dl-btn svg { width: 14px; height: 14px; }
+
+    /* ── Quiz row with chapters ── */
+    .quiz-row.has-ch { cursor: pointer; }
+    .quiz-row.has-ch .ch-toggle {
+      width: 18px; height: 18px; color: var(--text-muted); flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    .quiz-row.has-ch.ch-open .ch-toggle { transform: rotate(180deg); }
+
+    .ch-panel {
+      overflow: hidden; max-height: 0; opacity: 0;
+      transition: max-height 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease;
+    }
+    .ch-panel.open { opacity: 1; }
+
+    .ch-row {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 22px 9px 112px; background: var(--dark-900);
+      border-top: 1px solid rgba(39,61,47,0.25);
+      transition: background 0.2s ease;
+    }
+    html[dir="rtl"] .ch-row { padding: 9px 112px 9px 22px; }
+    .ch-row:hover { background: var(--dark-800); }
+    .ch-icon {
+      width: 26px; height: 26px; border-radius: 7px; background: var(--dark-600);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; flex-shrink: 0;
+    }
+    .ch-name {
+      flex: 1; min-width: 0; font-size: 0.82rem; font-weight: 500; color: var(--text-secondary);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .ch-dl-btn {
+      flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px;
+      padding: 5px 12px; border-radius: 5px;
+      background: var(--dark-500); color: var(--text-secondary);
+      font-family: inherit; font-size: 0.72rem; font-weight: 600;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: all 0.2s ease; white-space: nowrap;
+    }
+    .ch-dl-btn:hover {
+      background: var(--green-700); color: white;
+      transform: translateY(-1px); box-shadow: 0 2px 8px rgba(38,169,107,0.2);
+    }
+    .ch-dl-btn svg { width: 11px; height: 11px; flex-shrink: 0; }
+
+    /* ── Playlist button ── */
+    .playlist-row {
+      display: flex; align-items: center; justify-content: center;
+      padding: 12px 22px; background: var(--dark-700);
+      border-top: 1px solid var(--dark-600);
+    }
+    .playlist-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 20px; border-radius: var(--radius-xs);
+      background: transparent; border: 1px solid #c4302b;
+      color: #f87171; font-family: inherit; font-size: 0.8rem; font-weight: 600;
+      text-decoration: none; transition: all 0.25s ease; white-space: nowrap;
+    }
+    .playlist-btn:hover {
+      background: rgba(196, 48, 43, 0.12); border-color: #f87171;
+      transform: translateY(-1px); box-shadow: 0 4px 14px rgba(196,48,43,0.15);
+    }
+    .playlist-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* Course chapter files */
+    .cf-divider {
+      padding: 8px 22px 4px; background: var(--dark-800);
+      border-top: 1px solid var(--dark-500);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cf-divider span {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--green-400); font-weight: 700; white-space: nowrap;
+    }
+    .cf-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--dark-500);
+    }
+    html[dir="rtl"] .cf-divider::after {
+      background: linear-gradient(270deg, var(--dark-500), transparent);
+    }
+    .cf-row {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 22px 10px 40px; background: var(--dark-800);
+      border-top: 1px solid rgba(39,61,47,0.3);
+      transition: background 0.2s ease;
+    }
+    html[dir="rtl"] .cf-row { padding: 10px 40px 10px 22px; }
+    .cf-row:hover { background: var(--dark-700); }
+    .cf-icon {
+      font-size: 0.95rem; width: 28px; height: 28px; border-radius: 7px;
+      background: var(--dark-600); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cf-name {
+      flex: 1; min-width: 0; font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .cf-dl-btn {
+      flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: var(--radius-xs);
+      background: var(--dark-500); color: var(--text-secondary);
+      font-family: inherit; font-size: 0.75rem; font-weight: 600;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: all 0.25s ease; white-space: nowrap;
+    }
+    .cf-dl-btn:hover {
+      background: var(--green-700); color: white;
+      box-shadow: 0 2px 10px rgba(38,169,107,0.2); transform: translateY(-1px);
+    }
+    .cf-dl-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    /* ── PROMO ── */
+    .promo { background: var(--surface); border: 1px solid var(--dark-500); border-radius: var(--radius); padding: 40px 32px; text-align: center; margin-bottom: 48px; position: relative; overflow: hidden; }
+    .promo::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 240px; height: 1px; background: linear-gradient(90deg, transparent, var(--green-500), transparent); }
+    .promo h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+    .promo p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; font-weight: 300; }
+    .store-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; border-radius: 12px; background: white; color: #111; font-family: inherit; font-size: 0.95rem; font-weight: 700; text-decoration: none; transition: all 0.25s ease; }
+    .store-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,255,255,0.1); }
+    .store-btn svg { width: 24px; height: 24px; }
+
+    /* ── SOCIAL ── */
+    .social-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+    .soc { width: 44px; height: 44px; border-radius: 12px; background: var(--surface); border: 1px solid var(--dark-500); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); text-decoration: none; transition: all 0.25s ease; }
+    .soc:hover { background: var(--surface-hover); color: var(--green-400); border-color: var(--green-800); transform: translateY(-2px); }
+    .soc svg { width: 20px; height: 20px; }
+
+    /* ── SEARCH ── */
+    .search-wrap { margin-bottom: 28px; }
+    .search-input-row { position: relative; height: 52px; }
+    .search-box {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      padding: 0 52px; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--dark-500);
+      color: var(--text-primary); font-family: inherit; font-size: 0.95rem; font-weight: 400;
+      outline: none; transition: all 0.25s ease;
+    }
+    html[dir="rtl"] .search-box { padding: 0 52px; }
+    .search-box::placeholder { color: var(--text-muted); font-weight: 300; }
+    .search-box:focus { border-color: var(--green-600); box-shadow: 0 0 0 3px rgba(38,169,107,0.12); background: var(--surface-raised); }
+    .search-icon {
+      position: absolute; top: 0; left: 0; width: 52px; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); pointer-events: none; z-index: 2;
+      transition: color 0.2s ease;
+    }
+    .search-icon svg { width: 20px; height: 20px; }
+    html[dir="rtl"] .search-icon { left: auto; right: 0; }
+    .search-box:focus ~ .search-icon { color: var(--green-400); }
+    .search-clear {
+      position: absolute; top: 0; right: 0; width: 52px; height: 100%;
+      display: none; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer; padding: 0; z-index: 2;
+    }
+    .search-clear .x-circle {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: var(--dark-600); color: var(--text-muted);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem; line-height: 1; transition: all 0.2s ease;
+    }
+    .search-clear:hover .x-circle { background: var(--dark-500); color: var(--text-secondary); }
+    html[dir="rtl"] .search-clear { right: auto; left: 0; }
+    .search-clear.visible { display: flex; }
+    .search-stats {
+      margin-top: 10px; font-size: 0.78rem; color: var(--text-muted); font-weight: 400;
+      display: none; padding-left: 4px;
+    }
+    html[dir="rtl"] .search-stats { padding-left: 0; padding-right: 4px; }
+    .search-stats.visible { display: block; }
+    .search-stats .count { color: var(--green-400); font-weight: 600; }
+
+    /* Search results */
+    .search-results { margin-bottom: 56px; display: none; }
+    .search-results.active { display: block; }
+    .search-result-item {
+      display: grid; grid-template-columns: 40px 1fr auto; align-items: center; gap: 16px;
+      padding: 16px 20px; background: var(--surface); border: 1px solid var(--dark-500);
+      border-radius: var(--radius-sm); margin-bottom: 8px;
+      transition: all var(--transition); animation: fade-up 0.3s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    .search-result-item:hover { background: var(--surface-hover); border-color: var(--dark-400); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .sr-quiz-icon {
+      font-size: 1.2rem; width: 40px; height: 40px; border-radius: 10px;
+      background: var(--dark-600); display: flex; align-items: center; justify-content: center;
+    }
+    .sr-info { min-width: 0; overflow: hidden; }
+    .sr-name {
+      font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .sr-name mark { background: rgba(38,169,107,0.25); color: var(--green-300); border-radius: 2px; padding: 0 2px; }
+    .sr-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .sr-section-badge {
+      font-size: 0.68rem; font-weight: 600; color: var(--text-muted);
+      background: var(--dark-600); padding: 2px 8px; border-radius: 6px;
+      white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;
+    }
+    .sr-dl-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 9px 20px; border-radius: var(--radius-xs);
+      background: var(--green-700); color: white;
+      font-family: inherit; font-size: 0.8rem; font-weight: 600;
+      border: none; cursor: pointer; text-decoration: none;
+      transition: all 0.25s ease; white-space: nowrap;
+    }
+    .sr-dl-btn:hover { background: var(--green-600); box-shadow: 0 4px 14px rgba(38,169,107,0.25); transform: translateY(-1px); }
+    .sr-dl-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .no-results {
+      text-align: center; padding: 48px 20px; color: var(--text-muted);
+      background: var(--surface); border: 1px solid var(--dark-500); border-radius: var(--radius);
+    }
+    .no-results svg { width: 48px; height: 48px; opacity: 0.3; margin-bottom: 12px; display: block; margin-left: auto; margin-right: auto; }
+    .no-results p { font-size: 0.92rem; font-weight: 300; margin-bottom: 4px; }
+    .no-results p strong { color: var(--text-secondary); font-weight: 500; }
+
+    footer { text-align: center; padding: 20px 0 48px; color: var(--text-muted); font-size: 0.78rem; font-weight: 300; }
+    footer a { color: var(--green-500); text-decoration: none; }
+
+    @media (max-width: 680px) {
+      header { padding: 40px 0 32px; }
+      .how-to { grid-template-columns: 1fr; }
+      .quiz-row { flex-wrap: wrap; padding: 14px 18px; gap: 10px; }
+      html[dir="rtl"] .quiz-row { padding: 14px 18px; }
+      .quiz-row-info { flex-basis: calc(100% - 58px); }
+      .quiz-row.has-ch .ch-toggle { order: 10; }
+      .dl-btn { flex: 1; justify-content: center; }
+      .promo { padding: 28px 20px; }
+      .video-info { padding: 16px 18px; }
+      .search-result-item {
+        grid-template-columns: 40px 1fr;
+        gap: 12px; padding: 14px 16px;
+      }
+      .sr-name { white-space: normal; }
+      .sr-dl-btn { grid-column: 1 / -1; width: 100%; }
+      .ch-row { padding: 9px 18px !important; }
+      .ch-name { white-space: normal; }
+      .cf-divider { padding: 8px 18px !important; }
+      .cf-row { padding: 10px 18px !important; }
+      .cf-name { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-layer"><div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div></div>
+  <div class="grain"></div>
+
+  <!-- ═══ LANG BAR ═══ -->
+  <nav class="lang-bar">
+    <div class="wrap">
+      <div class="lang-brand">
+        <img src="SS.ico" width="24" height="24" alt="logo">
+        Green Science - العلوم الخضراء
+      </div>
+      <div class="lang-btns">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" onclick="setLang('ar')">عربي</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <!-- ═══ HEADER ═══ -->
+    <header>
+      <div class="hero-badge"><span class="dot"></span><span data-i18n="badge">Free &amp; Open Quiz Packs</span></div>
+      <h1><span class="accent" data-i18n="heroAccent">Green Science</span><br><span data-i18n="heroTitle">Quiz Downloads</span></h1>
+      <p class="subtitle" data-i18n="heroSub">Download quiz packs for your app. Soil science, plant nutrition, climatology and more — all free.</p>
+    </header>
+
+    <!-- ═══ VIDEO ═══ -->
+    <section class="video-section">
+      <div class="section-label"><span data-i18n="videoLabel">How It Works</span></div>
+      <div class="video-card">
+        <div class="video-embed" id="videoEmbed">
+          <div class="video-placeholder" id="videoPlaceholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <span data-i18n="videoSoon">Tutorial video coming soon</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <p data-i18n="videoDesc">Watch this short tutorial to learn how to download quiz files, import them into the app, and start learning.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HOW-TO ═══ -->
+    <div class="how-to">
+      <div class="how-step"><div class="num">1</div><h4 data-i18n="step1Title">Download</h4><p data-i18n="step1Desc">Pick a quiz file below and tap download</p></div>
+      <div class="how-step"><div class="num">2</div><h4 data-i18n="step2Title">Open App</h4><p data-i18n="step2Desc">Launch Green Science Quiz on your phone</p></div>
+      <div class="how-step"><div class="num">3</div><h4 data-i18n="step3Title">Import</h4><p data-i18n="step3Desc">Import the JSON file from the app menu</p></div>
+    </div>
+
+    <!-- ═══ SEARCH + QUIZ SECTIONS ═══ -->
+    <div class="section-label"><span data-i18n="quizLabel">Available Quiz Packs</span></div>
+
+    <div class="search-wrap">
+      <div class="search-input-row">
+        <input type="text" class="search-box" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Search quizzes..." autocomplete="off" spellcheck="false">
+        <div class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <button class="search-clear" id="searchClear" aria-label="Clear search"><span class="x-circle">&times;</span></button>
+      </div>
+      <div class="search-stats" id="searchStats"></div>
+    </div>
+
+    <!-- Search results (flat list, shown when typing) -->
+    <div class="search-results" id="searchResults"></div>
+
+    <!-- Normal grouped sections (hidden when searching) -->
+    <div class="quiz-sections" id="quizSections"></div>
+
+    <!-- ═══ PROMO ═══ -->
+    <div class="promo">
+      <h3 data-i18n="promoTitle">Get the App</h3>
+      <p data-i18n="promoDesc">Download Green Science Quiz on Google Play and start learning today.</p>
+      <a href="#" class="store-btn" id="playStoreLink">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .61-.92zm.96-.752l11.265 6.33L13.112 12l-8.54-8.538zm14.78 8.295L17.1 10.59l-2.72 2.72 2.72 2.72 2.25 1.233c.79.434.79 1.14 0 1.574l-2.25 1.233-2.72-2.72L11.66 14.63 3.61 22.68l14.78-8.295a1.003 1.003 0 0 0 0-1.728l.96-.6z"/></svg>
+        Google Play
+      </a>
+    </div>
+
+    <!-- ═══ SOCIAL ═══ -->
+    <div class="social-row">
+      <a href="https://www.facebook.com/Green.Science.A" target="_blank" rel="noopener" class="soc" title="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+      <a href="https://www.youtube.com/@greenscience-9226" target="_blank" rel="noopener" class="soc" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a href="https://www.instagram.com/greensciencea/" target="_blank" rel="noopener" class="soc" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+    </div>
+
+    <footer>&copy; 2025 Ouali Abdelouahad &mdash; <a href="https://www.youtube.com/@greenscience-9226" data-i18n="footerLink">Visit our channel</a></footer>
+  </div>
+
+<script>
+// ╔══════════════════════════════════════════════════════════════════════╗
+// ║                      ⚙️  CONFIGURATION AREA                        ║
+// ║                                                                      ║
+// ║  Edit the data below to add sections, quizzes, and translations.    ║
+// ║  You can also set your YouTube video ID and Play Store link.        ║
+// ╚══════════════════════════════════════════════════════════════════════╝
+
+// ── YouTube Tutorial Video ID ──
+// Replace with your actual video ID (the part after v= in the URL)
+const YOUTUBE_VIDEO_ID = 'K2tFoy-TaX8'; // e.g., 'dQw4w9WgXcQ'
+
+// ── Google Play Store Link ──
+const PLAY_STORE_URL = '#'; // e.g., 'https://play.google.com/store/apps/details?id=com.quizmaster.app'
+
+
+// ══════════════════════════════════════════════════
+// QUIZ SECTIONS — Each section contains one or more quizzes
+// ══════════════════════════════════════════════════
+const sections = [
+  {
+    id: 'soil-physics',
+    icon: '☄',
+    category: 'physics',
+    title: {
+      en: 'Soil Physics',
+      fr: 'Physique du Sol',
+      ar: 'فيزياء التربة'
+    },
+    playlist: '',
+    quizzes: [
+      {
+        icon: '📐',
+        title: { en: 'Mass-Volume Relations', fr: 'Relations Masse-Volume', ar: 'علاقات الكتلة-الحجم' },
+        questions: 30, chapters: 4, langs: ['EN', 'FR', 'AR'],
+        file: 'https://www.mediafire.com/file/msfqgmnb6fzdern/SOIL_PHYSICS_-_CH01_Soil_Components.json/file',
+        // Optional: per-chapter download links. Only shows if array has items.
+        chapterFiles: [
+          // { title: { en: 'Ch1: Soil components', fr: 'Ch1: Les constituants du sol', ar: 'ف1: مكونات التربة' }, file: 'quizzes/soil_texture/ch1.json' },
+          // { title: { en: 'Ch2: Size Categories', fr: 'Ch2: Catégories', ar: 'ف2: الفئات القوامية' }, file: 'quizzes/soil_texture/ch2.json' },
+        ]
+      },
+      {
+        icon: '🗻',
+        title: { en: 'Soil Texture', fr: 'La Texture Du Sol', ar: 'قوام التربة' },
+        questions: 40, chapters: 6, langs: ['EN', 'FR', 'AR'],
+        file: 'https://www.mediafire.com/file/ap8vxhl3fkwtb4l/SOIL_PHYSICS_-_CH02_Soil_Texture.json/file',
+        chapterFiles: []
+      }
+    ],
+    // Optional: individual chapter files (PDFs, docs, etc.)
+    // Only shows if array has items. Remove or leave empty [] to hide.
+    courseFiles: [
+      //{ icon: '📄', title: { en: 'Ch1: Solid Phase', fr: 'Ch1: Phase Solide', ar: 'ف1: الطور الصلب' }, file: 'chapters/soil/ch1.pdf' },
+      // { icon: '📄', title: { en: 'Ch2: Size Categories', fr: 'Ch2: Catégories', ar: 'ف2: الفئات القوامية' }, file: 'https://www.mediafire.com/file/swtdn6vhzd8avgq/GS_-_Plant_Nutrition_and_Soil_Fertility.pdf/file' },
+    ]
+  },
+  {
+    id: 'plant',
+    icon: '🌱',
+    category: 'plant',
+    title: {
+      en: 'Plant Nutrition',
+      fr: 'Nutrition Végétale',
+      ar: 'تغذية النبات'
+    },
+    playlist: '',
+    quizzes: [
+      {
+        icon: '🌿',
+        title: { en: 'Plant Nutrition', fr: 'Nutrition Végétale', ar: 'تغذية النبات' },
+        questions: 45, chapters: 7, langs: ['EN', 'FR', 'AR'],
+        file: 'quizzes/Plant_Nutrition_Quiz.json',
+        chapterFiles: []
+      }
+    ],
+    courseFiles: [{ icon: '📄', title: { en: 'Plant Nutrition and Soil Fertility', fr: 'Plant Nutrition and Soil Fertility', ar: 'Plant Nutrition and Soil Fertility' }, file: 'https://www.mediafire.com/file/swtdn6vhzd8avgq/GS_-_Plant_Nutrition_and_Soil_Fertility.pdf/file' },]
+  },
+  {
+    id: 'climate',
+    icon: '🌤️',
+    category: 'climate',
+    title: {en: 'Bioclimatology', fr: 'Bioclimatologie', ar: 'المناخ الحيوي'},
+    playlist: '',
+    quizzes: [
+      {
+        icon: '🌡️',
+        title: { en: 'Bioclimatology', fr: 'Bioclimatologie', ar: 'المناخ الحيوي' },
+        questions: 0, chapters: 0, langs: ['EN', 'FR', 'AR'],
+        file: 'quizzes/Bioclimatology_Quiz.json',
+        chapterFiles: []
+      }
+    ],
+    courseFiles: []
+  },
+
+  // ┌──────────────────────────────────────────────────┐
+  // │  ADD MORE SECTIONS BY COPYING THE BLOCK BELOW:   │
+  // └──────────────────────────────────────────────────┘
+  // {
+  //   id: 'new-section',
+  //   icon: '🔬',
+  //   category: 'biology',
+  //   title: { en: 'New Section', fr: 'Nouvelle Section', ar: 'قسم جديد' },
+  //   playlist: 'https://www.youtube.com/playlist?list=PLxxxxxxx',
+  //   quizzes: [
+  //     {
+  //       icon: '📝',
+  //       title: { en: 'Quiz 1', fr: 'Quiz 1', ar: 'اختبار 1' },
+  //       questions: 30, chapters: 5, langs: ['EN','FR','AR'],
+  //       file: 'quizzes/Quiz1.json',
+  //       chapterFiles: [
+  //         { title: { en: 'Ch1: Intro', fr: 'Ch1: Intro', ar: 'ف1: مقدمة' }, file: 'quizzes/quiz1/ch1.json' },
+  //         { title: { en: 'Ch2: Core', fr: 'Ch2: Base', ar: 'ف2: الأساسيات' }, file: 'quizzes/quiz1/ch2.json' },
+  //       ]
+  //     },
+  //   ],
+  //   courseFiles: [
+  //     { icon: '📄', title: { en: 'Course PDF', fr: 'PDF du Cours', ar: 'ملف الدرس' }, file: 'chapters/course.pdf' },
+  //   ]
+  // },
+];
+
+
+// ══════════════════════════════════════════════════
+// TRANSLATIONS
+// ══════════════════════════════════════════════════
+const i18n = {
+  en: {
+    badge: 'Free & Open Quiz Packs',
+    heroAccent: 'Green Science',
+    heroTitle: 'Quiz Downloads',
+    heroSub: 'Download quiz packs for your app. Soil science, plant nutrition, climatology and more — all free.',
+    videoLabel: 'How It Works',
+    videoSoon: 'Tutorial video coming soon',
+    videoDesc: 'Watch this short tutorial to learn how to download quiz files, import them into the app, and start learning.',
+    step1Title: 'Download', step1Desc: 'Pick a quiz file below and tap download',
+    step2Title: 'Open App', step2Desc: 'Launch Green Science Quiz on your phone',
+    step3Title: 'Import', step3Desc: 'Import the JSON file from the app menu',
+    quizLabel: 'Available Quiz Packs',
+    quizCount: '{n} quiz files',
+    questions: 'questions',
+    chapters: 'chapters',
+    download: 'Download',
+    watchPlaylist: 'Watch Playlist on YouTube',
+    courseFilesLabel: 'Course Chapters',
+    promoTitle: 'Get the App',
+    promoDesc: 'Download Green Science Quiz on Google Play and start learning today.',
+    footerLink: 'Visit our channel',
+    searchPlaceholder: 'Search quizzes...',
+    searchResults: '{n} results found',
+    searchNoResults: 'No quizzes found',
+    searchNoResultsSub: 'Try a different keyword',
+  },
+  fr: {
+    badge: 'Packs de quiz gratuits',
+    heroAccent: 'Green Science',
+    heroTitle: 'Téléchargement de Quiz',
+    heroSub: 'Téléchargez des quiz pour votre application. Science du sol, nutrition végétale, climatologie et plus — gratuitement.',
+    videoLabel: 'Comment ça marche',
+    videoSoon: 'Vidéo tutoriel bientôt disponible',
+    videoDesc: 'Regardez ce court tutoriel pour apprendre comment télécharger les fichiers quiz, les importer dans l\'application et commencer à apprendre.',
+    step1Title: 'Télécharger', step1Desc: 'Choisissez un quiz ci-dessous et appuyez sur télécharger',
+    step2Title: 'Ouvrir l\'app', step2Desc: 'Lancez Green Science Quiz sur votre téléphone',
+    step3Title: 'Importer', step3Desc: 'Importez le fichier JSON depuis le menu de l\'app',
+    quizLabel: 'Packs de quiz disponibles',
+    quizCount: '{n} fichiers quiz',
+    questions: 'questions',
+    chapters: 'chapitres',
+    download: 'Télécharger',
+    watchPlaylist: 'Voir la playlist sur YouTube',
+    courseFilesLabel: 'Chapitres du Cours',
+    promoTitle: 'Obtenez l\'application',
+    promoDesc: 'Téléchargez Green Science Quiz sur Google Play et commencez à apprendre aujourd\'hui.',
+    footerLink: 'Visitez notre chaîne',
+    searchPlaceholder: 'Rechercher des quiz...',
+    searchResults: '{n} résultats trouvés',
+    searchNoResults: 'Aucun quiz trouvé',
+    searchNoResultsSub: 'Essayez un autre mot-clé',
+  },
+  ar: {
+    badge: 'حزم اختبارات مجانية',
+    heroAccent: 'Green Science',
+    heroTitle: 'تحميل الاختبارات',
+    heroSub: 'حمّل ملفات الاختبارات لتطبيقك. علم التربة، تغذية النبات، علم المناخ والمزيد — مجاناً.',
+    videoLabel: 'كيف يعمل',
+    videoSoon: 'فيديو تعليمي قريباً',
+    videoDesc: 'شاهد هذا الفيديو القصير لتتعلم كيفية تحميل ملفات الاختبار واستيرادها في التطبيق والبدء في التعلم.',
+    step1Title: 'حمّل', step1Desc: 'اختر ملف اختبار أدناه واضغط تحميل',
+    step2Title: 'افتح التطبيق', step2Desc: 'شغّل تطبيق Green Science Quiz على هاتفك',
+    step3Title: 'استيراد', step3Desc: 'استورد ملف JSON من قائمة التطبيق',
+    quizLabel: 'حزم الاختبارات المتوفرة',
+    quizCount: '{n} ملفات اختبار',
+    questions: 'سؤال',
+    chapters: 'فصول',
+    download: 'تحميل',
+    watchPlaylist: 'شاهد قائمة التشغيل على يوتيوب',
+    courseFilesLabel: 'فصول الدروس',
+    promoTitle: 'حمّل التطبيق',
+    promoDesc: 'حمّل Green Science Quiz من Google Play وابدأ التعلم اليوم.',
+    footerLink: 'زوروا قناتنا',
+    searchPlaceholder: 'ابحث عن اختبار...',
+    searchResults: '{n} نتائج',
+    searchNoResults: 'لم يتم العثور على اختبارات',
+    searchNoResultsSub: 'جرّب كلمة مفتاحية مختلفة',
+  }
+};
+
+
+// ╔══════════════════════════════════════════════════════════════════════╗
+// ║              ENGINE — You don't need to edit below                  ║
+// ╚══════════════════════════════════════════════════════════════════════╝
+
+let currentLang = 'en';
+const dlSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
+const chevSvg = '<svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+
+function setLang(lang) {
+  currentLang = lang;
+  try { localStorage.setItem('gs_lang', lang); } catch(e) {}
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    const btnLang = b.getAttribute('onclick').match(/'(\w+)'/)[1];
+    b.classList.toggle('active', btnLang === lang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (i18n[lang] && i18n[lang][key]) el.textContent = i18n[lang][key];
+  });
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (i18n[lang] && i18n[lang][key]) el.placeholder = i18n[lang][key];
+  });
+  // Clear search on lang change
+  const si = document.getElementById('searchInput');
+  if (si) { si.value = ''; clearSearch(); }
+  renderSections();
+}
+
+function renderSections() {
+  const c = document.getElementById('quizSections');
+  c.innerHTML = '';
+  const t = i18n[currentLang];
+
+  sections.forEach((sec, si) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-section';
+
+    const hasCF = sec.courseFiles && sec.courseFiles.length > 0;
+    const countText = t.quizCount.replace('{n}', sec.quizzes.length);
+
+    const header = document.createElement('div');
+    header.className = 'section-header collapsed';
+    header.innerHTML = '<div class="section-icon ' + sec.category + '">' + sec.icon + '</div>' +
+      '<div class="section-info"><div class="section-title-text">' + (sec.title[currentLang] || sec.title.en) + '</div>' +
+      '<div class="section-count">' + countText + (hasCF ? ' · ' + sec.courseFiles.length + ' ' + t.courseFilesLabel.toLowerCase() : '') + '</div></div>' + chevSvg;
+
+    const body = document.createElement('div');
+    body.className = 'section-body hidden';
+
+    // Quiz rows
+    sec.quizzes.forEach(q => {
+      const hasCh = q.chapterFiles && q.chapterFiles.length > 0;
+      const toggleSvg = hasCh ? '<svg class="ch-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' : '';
+
+      const row = document.createElement('div');
+      row.className = 'quiz-row' + (hasCh ? ' has-ch' : '');
+      row.innerHTML = '<div class="quiz-row-icon">' + q.icon + '</div>' +
+        '<div class="quiz-row-info"><div class="quiz-row-name">' + (q.title[currentLang] || q.title.en) + '</div>' +
+        '<div class="quiz-row-meta"><span class="qm-tag">' + q.questions + ' ' + t.questions + '</span>' +
+        '<span class="qm-tag">·</span><span class="qm-tag">' + q.chapters + ' ' + t.chapters + '</span>' +
+        '<span class="qm-tag">·</span><span class="qm-tag">' + q.langs.join(' · ') + '</span></div></div>' +
+        toggleSvg +
+        '<a href="' + q.file + '" download class="dl-btn" onclick="event.stopPropagation()">' + dlSvg + ' ' + t.download + '</a>';
+      body.appendChild(row);
+
+      // Chapter panel (expandable under quiz row)
+      if (hasCh) {
+        const panel = document.createElement('div');
+        panel.className = 'ch-panel';
+
+        q.chapterFiles.forEach(ch => {
+          const chRow = document.createElement('div');
+          chRow.className = 'ch-row';
+          chRow.innerHTML =
+            '<div class="ch-icon">📄</div>' +
+            '<div class="ch-name">' + (ch.title[currentLang] || ch.title.en) + '</div>' +
+            '<a href="' + ch.file + '" download class="ch-dl-btn">' + dlSvg + ' ' + t.download + '</a>';
+          panel.appendChild(chRow);
+        });
+
+        body.appendChild(panel);
+
+        // Toggle chapters on quiz row click
+        row.addEventListener('click', (e) => {
+          if (e.target.closest('.dl-btn')) return;
+          row.classList.toggle('ch-open');
+          if (row.classList.contains('ch-open')) {
+            panel.style.maxHeight = '0px';
+            panel.classList.add('open');
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                panel.style.maxHeight = panel.scrollHeight + 'px';
+                body.style.maxHeight = (body.scrollHeight + panel.scrollHeight) + 'px';
+              });
+            });
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+            requestAnimationFrame(() => {
+              panel.classList.remove('open');
+              panel.style.maxHeight = '0px';
+              setTimeout(() => { body.style.maxHeight = body.scrollHeight + 'px'; }, 400);
+            });
+          }
+        });
+      }
+    });
+
+    // Course chapter files
+    if (hasCF) {
+      const cfDivider = document.createElement('div');
+      cfDivider.className = 'cf-divider';
+      cfDivider.innerHTML = '<span>' + t.courseFilesLabel + '</span>';
+      body.appendChild(cfDivider);
+
+      sec.courseFiles.forEach(cf => {
+        const cfRow = document.createElement('div');
+        cfRow.className = 'cf-row';
+        cfRow.innerHTML =
+          '<div class="cf-icon">' + (cf.icon || '📄') + '</div>' +
+          '<div class="cf-name">' + (cf.title[currentLang] || cf.title.en) + '</div>' +
+          '<a href="' + cf.file + '" download class="cf-dl-btn">' + dlSvg + ' ' + t.download + '</a>';
+        body.appendChild(cfRow);
+      });
+    }
+
+    // Playlist button
+    if (sec.playlist) {
+      const plRow = document.createElement('div');
+      plRow.className = 'playlist-row';
+      plRow.innerHTML = '<a href="' + sec.playlist + '" target="_blank" rel="noopener" class="playlist-btn">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>' +
+        ' ' + t.watchPlaylist + '</a>';
+      body.appendChild(plRow);
+    }
+
+    // Expand/collapse
+    header.addEventListener('click', () => {
+      const isCollapsed = header.classList.contains('collapsed');
+      if (isCollapsed) {
+        header.classList.remove('collapsed');
+        body.style.maxHeight = '0px';
+        body.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            body.style.maxHeight = body.scrollHeight + 'px';
+          });
+        });
+      } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        header.classList.add('collapsed');
+        requestAnimationFrame(() => {
+          body.classList.add('hidden');
+        });
+      }
+    });
+
+    div.appendChild(header);
+    div.appendChild(body);
+    c.appendChild(div);
+  });
+}
+
+// ── Search Engine ──
+function clearSearch() {
+  const sr = document.getElementById('searchResults');
+  const qs = document.getElementById('quizSections');
+  const stats = document.getElementById('searchStats');
+  const clearBtn = document.getElementById('searchClear');
+  sr.classList.remove('active');
+  sr.innerHTML = '';
+  qs.style.display = '';
+  stats.classList.remove('visible');
+  clearBtn.classList.remove('visible');
+}
+
+function performSearch(query) {
+  const sr = document.getElementById('searchResults');
+  const qs = document.getElementById('quizSections');
+  const stats = document.getElementById('searchStats');
+  const clearBtn = document.getElementById('searchClear');
+  const t = i18n[currentLang];
+
+  query = query.trim().toLowerCase();
+
+  if (!query) { clearSearch(); return; }
+
+  clearBtn.classList.add('visible');
+
+  // Flatten all quizzes and search across all 3 languages
+  const results = [];
+  sections.forEach(sec => {
+    sec.quizzes.forEach(q => {
+      const haystack = [
+        q.title.en, q.title.fr, q.title.ar,
+        sec.title.en, sec.title.fr, sec.title.ar
+      ].join(' ').toLowerCase();
+      if (haystack.includes(query)) {
+        results.push({ section: sec, quiz: q });
+      }
+    });
+  });
+
+  // Show results
+  qs.style.display = 'none';
+  sr.classList.add('active');
+  sr.innerHTML = '';
+
+  if (results.length === 0) {
+    sr.innerHTML = '<div class="no-results">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="8" x2="14" y2="14"/><line x1="14" y1="8" x2="8" y2="14"/></svg>' +
+      '<p><strong>' + t.searchNoResults + '</strong></p>' +
+      '<p>' + t.searchNoResultsSub + '</p></div>';
+    stats.classList.remove('visible');
+    return;
+  }
+
+  stats.innerHTML = '<span class="count">' + results.length + '</span> ' + t.searchResults.replace('{n}', '');
+  stats.classList.add('visible');
+
+  results.forEach((r, i) => {
+    const item = document.createElement('div');
+    item.className = 'search-result-item';
+    item.style.animationDelay = (i * 0.04) + 's';
+
+    const quizName = r.quiz.title[currentLang] || r.quiz.title.en;
+    const secName = r.section.title[currentLang] || r.section.title.en;
+    const highlighted = highlightMatch(quizName, query);
+
+    item.innerHTML =
+      '<div class="sr-quiz-icon">' + r.quiz.icon + '</div>' +
+      '<div class="sr-info">' +
+        '<div class="sr-name">' + highlighted + '</div>' +
+        '<div class="sr-meta">' +
+          '<span class="qm-tag">' + r.quiz.questions + ' ' + t.questions + '</span>' +
+          '<span class="qm-tag">·</span>' +
+          '<span class="qm-tag">' + r.quiz.chapters + ' ' + t.chapters + '</span>' +
+          '<span class="qm-tag">·</span>' +
+          '<span class="sr-section-badge">' + r.section.icon + ' ' + secName + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<a href="' + r.quiz.file + '" download class="sr-dl-btn">' + dlSvg + ' ' + t.download + '</a>';
+    sr.appendChild(item);
+  });
+}
+
+function highlightMatch(text, query) {
+  if (!query) return text;
+  const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return text;
+  return text.slice(0, idx) + '<mark>' + text.slice(idx, idx + query.length) + '</mark>' + text.slice(idx + query.length);
+}
+
+// Wire up search events
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('searchClear');
+  let debounce;
+  input.addEventListener('input', () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => performSearch(input.value), 150);
+  });
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    clearSearch();
+    input.focus();
+  });
+  // ESC to clear
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { input.value = ''; clearSearch(); }
+  });
+});
+
+function setupVideo() {
+  const embed = document.getElementById('videoEmbed');
+  const ph = document.getElementById('videoPlaceholder');
+  if (YOUTUBE_VIDEO_ID) {
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_VIDEO_ID + '?rel=0&modestbranding=1&playsinline=1';
+    iframe.title = 'How to use Green Science Quiz';
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;';
+    embed.appendChild(iframe);
+    ph.style.display = 'none';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  let saved;
+  try { saved = localStorage.getItem('gs_lang'); } catch(e) {}
+  const bl = (navigator.language || '').slice(0, 2);
+  const startLang = (saved && ['en','fr','ar'].includes(saved)) ? saved : (['en','fr','ar'].includes(bl) ? bl : 'en');
+  setLang(startLang);
+  setupVideo();
+  document.getElementById('playStoreLink').href = PLAY_STORE_URL;
+});
+</script>
+</body>
+</html>
